@@ -1,4 +1,4 @@
-package com.example.samogon;
+package ru.dimakaplin143.samogon;
 
 import org.junit.Test;
 

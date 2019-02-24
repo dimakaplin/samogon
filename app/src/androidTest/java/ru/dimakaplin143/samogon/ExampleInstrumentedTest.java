@@ -1,4 +1,4 @@
-package com.example.samogon;
+package ru.dimakaplin143.samogon;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.example.samogon;
+package ru.dimakaplin143.samogon;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

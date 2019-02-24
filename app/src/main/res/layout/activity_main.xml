@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFE082"
-    tools:context=".MainActivity">
+    tools:context="ru.dimakaplin143.samogon.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -260,9 +260,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button"
-                android:onClick="calcAlco"
                 android:padding="10dp"
-
                 android:textAlignment="center"
 
                 />
