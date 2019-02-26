@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Калькулятор самогонщика</string>
+    <string name="menu"></string>
 </resources>

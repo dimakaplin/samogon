@@ -1,9 +1,14 @@
 package ru.dimakaplin143.samogon;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +22,31 @@ import com.dimakaplin143.samogon.R;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // получим идентификатор выбранного пункта меню
+        int id = item.getItemId();
+
+        // Операции для выбранного пункта меню
+        switch (id) {
+            case R.id.to_note_list:
+                Intent intent = new Intent(MainActivity.this, NoteList.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         outVolume.setText(AlcoCalc.getNextVol() + " л");
         TextView buttle  = (TextView) findViewById(R.id.buttle);
         buttle.setText(AlcoCalc.getAmountBottle());
+        
+
 
         final EditText grOutput = (EditText) findViewById(R.id.grOutput);
 
