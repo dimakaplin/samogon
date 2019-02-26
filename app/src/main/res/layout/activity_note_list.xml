@@ -4,6 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFE082"
     tools:context="ru.dimakaplin143.samogon.NoteList">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        >
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFE082"
+            android:columnCount="1"
+            android:rowCount="7"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/text_view_bg"
+            android:textAlignment="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            >
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+            <Button
+                android:id="@+id/add_new_note"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/add_button"
+                android:padding="10dp"
+                android:textAlignment="center"
+                />
+
+            <Button
+                android:id="@+id/sort_by_date"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/sort_by_date_button"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:layout_toLeftOf="@id/sort_by_name"
+                />
+
+            <Button
+                android:id="@+id/sort_by_name"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/sort_by_name_button"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:layout_alignParentRight = "true"
+                android:layout_marginLeft="5dp"
+                />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        </GridLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

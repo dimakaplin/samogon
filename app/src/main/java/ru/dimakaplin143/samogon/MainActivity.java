@@ -22,7 +22,7 @@ import com.dimakaplin143.samogon.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static boolean firstStart = true;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,22 +51,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView water = (TextView) findViewById(R.id.water);
-        water.setText(AlcoCalc.getWaterVol() + " л");
-        TextView outVolume = (TextView) findViewById(R.id.volume);
-        outVolume.setText(AlcoCalc.getNextVol() + " л");
-        TextView buttle  = (TextView) findViewById(R.id.buttle);
-        buttle.setText(AlcoCalc.getAmountBottle());
-        
 
+        this.setTitle("Калькулятор самогонщика");
 
-        final EditText grOutput = (EditText) findViewById(R.id.grOutput);
+        final TextView waterView = (TextView) findViewById(R.id.water);
+        final TextView outVolumeView = (TextView) findViewById(R.id.volume);
+        final TextView buttleView  = (TextView) findViewById(R.id.buttle);
+        final EditText volEdit = (EditText) findViewById(R.id.vol);
+        final EditText grInputEdit = (EditText) findViewById(R.id.grInput);
+        final EditText grOutputEdit = (EditText) findViewById(R.id.grOutput);
+
+        if(firstStart) {
+            waterView.setText("0 л");
+            outVolumeView.setText("0 л");
+            buttleView.setText("0");
+        }
+        else {
+            waterView.setText(DataStorage.getCalcState("water"));
+            outVolumeView.setText(DataStorage.getCalcState("outVolume"));
+            buttleView.setText(DataStorage.getCalcState("buttle"));
+            volEdit.setText(DataStorage.getCalcState("vol"));
+            grInputEdit.setText(DataStorage.getCalcState("grInput"));
+            grOutputEdit.setText(DataStorage.getCalcState("grOutput"));
+        }
 
         Button calcButton  = (Button) findViewById(R.id.calc);
         calcButton.setOnClickListener(onClickCalc);
 
 
-        grOutput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        grOutputEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -78,6 +91,56 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        firstStart = false;
+        TextView waterView = (TextView) findViewById(R.id.water);
+        TextView outVolumeView = (TextView) findViewById(R.id.volume);
+        TextView buttleView  = (TextView) findViewById(R.id.buttle);
+        EditText volEdit = (EditText) findViewById(R.id.vol);
+        EditText grInputEdit = (EditText) findViewById(R.id.grInput);
+        EditText grOutputEdit = (EditText) findViewById(R.id.grOutput);
+        String water = waterView.getText().toString();
+        String outVolume = outVolumeView.getText().toString();
+        String buttle = buttleView.getText().toString();
+        String vol = volEdit.getText().toString();
+        String grInput = grInputEdit.getText().toString();
+        String grOutput = grOutputEdit.getText().toString();
+
+        DataStorage.addCalcState("water", water);
+        DataStorage.addCalcState("outVolume", outVolume);
+        DataStorage.addCalcState("buttle", buttle);
+        DataStorage.addCalcState("vol", vol);
+        DataStorage.addCalcState("grInput", grInput);
+        DataStorage.addCalcState("grOutput", grOutput);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        TextView waterView = (TextView) findViewById(R.id.water);
+        String water = waterView.getText().toString();
+        TextView outVolumeView = (TextView) findViewById(R.id.volume);
+        String outVolume = outVolumeView.getText().toString();
+        TextView buttleView  = (TextView) findViewById(R.id.buttle);
+        String buttle = buttleView.getText().toString();
+        outState.putString("water", water);
+        outState.putString("outVolume", outVolume);
+        outState.putString("buttle", buttle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        TextView waterView = (TextView) findViewById(R.id.water);
+        TextView outVolumeView = (TextView) findViewById(R.id.volume);
+        TextView buttleView  = (TextView) findViewById(R.id.buttle);
+        waterView.setText(savedInstanceState.getString("water"));
+        outVolumeView.setText(savedInstanceState.getString("outVolume"));
+        buttleView.setText(savedInstanceState.getString("buttle"));
     }
 
 
@@ -109,12 +172,16 @@ public class MainActivity extends AppCompatActivity {
 
 
             AlcoCalc.addWater(volume, beforeAlco, afterAlco);
+
             TextView water = (TextView) findViewById(R.id.water);
-            water.setText(AlcoCalc.getWaterVol() + " л");
+            DataStorage.addCalcState("water", AlcoCalc.getWaterVol() + " л");
+            water.setText(DataStorage.getCalcState("water"));
             TextView outVolume = (TextView) findViewById(R.id.volume);
-            outVolume.setText(AlcoCalc.getNextVol() + " л");
+            DataStorage.addCalcState("outVolume", AlcoCalc.getNextVol() + " л");
+            outVolume.setText(DataStorage.getCalcState("outVolume"));
             TextView buttle  = (TextView) findViewById(R.id.buttle);
-            buttle.setText(AlcoCalc.getAmountBottle());
+            DataStorage.addCalcState("buttle", AlcoCalc.getAmountBottle());
+            buttle.setText(DataStorage.getCalcState("buttle"));
 
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "Одно из полей равно 0", Toast.LENGTH_SHORT);
