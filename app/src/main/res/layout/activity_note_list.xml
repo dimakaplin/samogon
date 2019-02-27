@@ -24,6 +24,7 @@
             android:background="#FFE082"
             android:columnCount="1"
             android:rowCount="7"
+            android:id="@+id/base"
             >
 
         <LinearLayout

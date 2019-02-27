@@ -29,19 +29,19 @@ public class AlcoCalc {
         String checkString = String.format("%.2f",water);
 
         waterVol = regCheck(checkString, water);
-
+        DataStorage.addCalcState("water", waterVol + " л");
         double next = water + volume;
 
         String nextCheckString = String.format("%.2f", next);
 
         nextVol = regCheck(nextCheckString, next);
-
+        DataStorage.addCalcState("outVolume", nextVol + " л");
         double bottles = next / 0.5;
 
         // String bottleCheckString = String.format("%.2f", bottles);
 
         amountBottle = String.format("%.0f", bottles);
-
+        DataStorage.addCalcState("buttle", amountBottle);
     }
 
     public static String regCheck(String checkString, double checkDouble) {

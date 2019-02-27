@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             outVolumeView.setText("0 л");
             buttleView.setText("0");
         }
-        else {
+        else if (savedInstanceState == null) {
             waterView.setText(DataStorage.getCalcState("water"));
             outVolumeView.setText(DataStorage.getCalcState("outVolume"));
             buttleView.setText(DataStorage.getCalcState("buttle"));
@@ -174,13 +175,12 @@ public class MainActivity extends AppCompatActivity {
             AlcoCalc.addWater(volume, beforeAlco, afterAlco);
 
             TextView water = (TextView) findViewById(R.id.water);
-            DataStorage.addCalcState("water", AlcoCalc.getWaterVol() + " л");
             water.setText(DataStorage.getCalcState("water"));
             TextView outVolume = (TextView) findViewById(R.id.volume);
-            DataStorage.addCalcState("outVolume", AlcoCalc.getNextVol() + " л");
+
             outVolume.setText(DataStorage.getCalcState("outVolume"));
             TextView buttle  = (TextView) findViewById(R.id.buttle);
-            DataStorage.addCalcState("buttle", AlcoCalc.getAmountBottle());
+
             buttle.setText(DataStorage.getCalcState("buttle"));
 
         } else {
